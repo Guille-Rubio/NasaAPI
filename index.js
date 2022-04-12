@@ -23,6 +23,7 @@ morgan.token('param', function (req, res, param) {
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
+//app.use("/", (req,res)=>{console.log("ruta /")})//borrar
 app.use("/api", router);
 
 
