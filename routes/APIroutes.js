@@ -9,10 +9,16 @@ router.get('/', (req, res) => {
 })
 
 //landings
-router.get('/astronomy/landings?', controllers.getLanding)
+router.get('/astronomy/landings?minimum_mass', controllers.getLandingsByMinMass)
+router.get('/astronomy/landings/mass/:mass', controllers.getLandingsBySpecificMass)
+router.get('/astronomy/landings/class/:class', controllers.getLandingsByClass)
+router.get('/astronomy/landings?from&to', controllers.getLandingsByDate)
+router.post('/astronomy/landings/create', controllers.createLanding)
+router.put('/astronomy/landings/edit', controllers.editLanding)
+router.delete('/astronomy/landings/delete', controllers.deleteLanding)
 
 //NEas //Start with this query
-router.get('/astronomy/neas?',controllers.getNea);
+router.get('/astronomy/neas?', controllers.getNea);
 
 
 module.exports = router;
