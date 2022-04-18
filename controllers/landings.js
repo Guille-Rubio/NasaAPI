@@ -1,5 +1,4 @@
 const res = require('express/lib/response')
-const nasaAPI = require('../utils/fetchNasaApi')
 const LandingModel = require('../modules/landings')
 const NeoModel = require('../modules/neos')
 const landingModules = require('../modules/landingsQuerys')
