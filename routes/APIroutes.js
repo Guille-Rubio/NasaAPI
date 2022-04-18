@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const controllers = require('../controllers/controllers')
+const landings = require('../controllers/landings')
+const neas = require('../controllers/neas')
 
-
-router.get('/', (req, res) => {
-    res.json({ msg: "You are in" });
-
-})
 
 //landings
-router.get('/astronomy/landings?minimum_mass', controllers.getLandingsByMinMass)
-router.get('/astronomy/landings/mass/:mass', controllers.getLandingsBySpecificMass)
-router.get('/astronomy/landings/class/:class', controllers.getLandingsByClass)
-router.get('/astronomy/landings?from&to', controllers.getLandingsByDate)
-router.post('/astronomy/landings/create', controllers.createLanding)
-router.put('/astronomy/landings/edit', controllers.editLanding)
-router.delete('/astronomy/landings/delete', controllers.deleteLanding)
+router.get('/astronomy/landings/?', landings.getLandingsByQuery)
+router.get('/astronomy/landings/mass/:mass', landings.getLandingsBySpecificMass)
+router.get('/astronomy/landings/class/:class', landings.getLandingsByClass)
+router.post('/astronomy/landings/create', landings.createLanding)
+router.post('/astronomy/landings/edit', landings.editLanding)
+router.post('/astronomy/landings/delete', landings.deleteLanding)
 
 //NEas //Start with this query
-router.get('/astronomy/neas?', controllers.getNea);
+router.get('/astronomy/neas?', neas.getNeaByQuery);
+router.post('/astronomy/neas/create', neas.getNeaByQuery)
+router.get('astronomy/neas/editdesignation', neas.getNeaToEdit)
+router.post('astronomy/neas/edit', neas.editNea)
+router.post('astronomy/neas/delete', neas.deleteNea)
+
+
+
+
+
 
 
 module.exports = router;
