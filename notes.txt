@@ -1,2 +1,0 @@
-Se debe cambiar la base de datos para que guarde los valores de masa y fechas como números
-
