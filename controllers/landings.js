@@ -23,21 +23,14 @@ const getLandingsByQuery = async (req, res) => {
     } else {
         const from = req.query.from
         const to = req.query.to
-
-        const result = await landingModules.getLandingsBetweenDates(from,to)
-       
-
-
-        res.status(200).json({ msg: result })
-        /* try {
-            
-
-
-            res.status(200).json({ msg: landings })
+        try {
+            const result = await landingModules.getLandingsBetweenDates(from, to)
+            res.status(200).json({ msg: result })
         } catch (err) {
-            res.status(400).json({ msg1: err })
+            console.log(err)
+            res.status(400).json({ msg: "Bad Request" })
+        }
 
-        } */
     }
 }
 
@@ -58,13 +51,18 @@ const getLandingsBySpecificMass = async (req, res) => {
 }
 
 const getLandingsByClass = async (req, res) => {
-    const recclass = req.params.class
-    const filter = { recclass: recclass }
-    const query = await LandingModel.find(filter).exec();
-    if (query == 0) {
-        res.status(200).json({ msg: "No landings for the class provided" })
-    } else {
-        res.status(200).json(query)
+    try {
+        const recclass = req.params.class
+        const filter = { recclass: recclass }
+        const query = await LandingModel.find(filter).exec();
+        if (query == 0) {
+            res.status(200).json({ msg: "No landings for the class provided" })
+        } else {
+            res.status(200).json(query)
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ msg: "Bad Request" })
     }
 }
 
@@ -83,21 +81,30 @@ const createLanding = async (req, res) => {
 }
 
 const editLanding = async (req, res) => {
-    const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
-    const update = req.body;
-    const filter = { id: id }
-    let landingToEdit = await LandingModel.findOneAndUpdate(filter, update, { new: true });
-    res.status(201).json({ msg: `Landing ${filter.id} edited, saved data: ` + landingToEdit })
+    try {
+        const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
+        const update = req.body;
+        const filter = { id: id }
+        let landingToEdit = await LandingModel.findOneAndUpdate(filter, update, { new: true });
+        res.status(201).json({ msg: `Landing ${filter.id} edited, saved data: ` + landingToEdit })
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ msg: "Bad Request" })
+    }
 }
 
 const deleteLanding = async (req, res) => {
-    const { id } = req.body
-    const filter = { id: id }
-    LandingModel.deleteOne(filter, function (err) {
-        if (err) return handleError(err);
-    });
-    res.status(200).json({ msg: `landing with id: ${id} has been deleted` })
-
+    try {
+        const { id } = req.body
+        const filter = { id: id }
+        LandingModel.deleteOne(filter, function (err) {
+            if (err) return handleError(err);
+        });
+        res.status(200).json({ msg: `landing with id: ${id} has been deleted` })
+    } catch (err) {
+        console.log(err)
+        res.status(400).json({ msg: "Bad Request" })
+    }
 }
 
 
