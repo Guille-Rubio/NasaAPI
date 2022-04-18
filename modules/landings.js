@@ -32,7 +32,7 @@ const LandingSchema = new mongoose.Schema({
         trim: true
     },
     year: {
-        type: String,
+        type: Date,
         required: true,
         trim: true
     },
@@ -43,7 +43,7 @@ const LandingSchema = new mongoose.Schema({
     },
     reclong: {
         type: String,
-        required: false,
+        required: true,
         trim: true
     },
     geolocation: {
