@@ -49,7 +49,7 @@ const getLandingsBetweenDates = async (from, to) => {
                 }
             },
             {
-                '$match': { 'date': { '$gte': dateFrom, '$lt': dateTo } }
+                '$match': { 'date': { '$gte': dateFrom, '$lte': dateTo } }
             },
             {
                 '$sort': { 'year': -1 }
