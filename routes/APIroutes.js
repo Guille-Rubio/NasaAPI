@@ -13,11 +13,11 @@ router.post('/astronomy/landings/edit', landings.editLanding)
 router.post('/astronomy/landings/delete', landings.deleteLanding)
 
 //NEas //Start with this query
-router.get('/astronomy/neas?', neas.getNeaByQuery);
-router.post('/astronomy/neas/create', neas.getNeaByQuery)
-router.get('astronomy/neas/editdesignation', neas.getNeaToEdit)
-router.post('astronomy/neas/edit', neas.editNea)
-router.post('astronomy/neas/delete', neas.deleteNea)
+router.get('/astronomy/neas?', neas.getNeasByQuery);
+router.post('/astronomy/neas/create', neas.createNea)
+router.get('/astronomy/neas/editdesignation', neas.getNeaToEdit)
+router.post('/astronomy/neas/edit', neas.editNea)
+router.post('/astronomy/neas/delete', neas.deleteNea)
 
 
 
