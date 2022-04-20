@@ -9,7 +9,8 @@ const uri = `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbna
 const configParams = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    ssl:true
+    ssl:true,
+    sslValidate:false,
 }
 
 mongoose.connect(uri,configParams);
