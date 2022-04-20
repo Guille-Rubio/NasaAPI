@@ -1,6 +1,5 @@
 const res = require('express/lib/response')
 const LandingModel = require('../modules/landings')
-const NeoModel = require('../modules/neos')
 const landingModules = require('../modules/landingsQuerys')
 require('mongoose');
 

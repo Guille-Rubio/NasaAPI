@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const NeosSchema = new mongoose.Schema({
+const NeasSchema = new mongoose.Schema({
     designation: {
         type: String,
         required: false,
@@ -55,7 +55,7 @@ const NeosSchema = new mongoose.Schema({
 })
 
 
-const neoModel = mongoose.model("neos", NeosSchema);
+const neasModel = mongoose.model("neas", NeasSchema);
 
 
-module.exports = neoModel;
+module.exports = neasModel;
