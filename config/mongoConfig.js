@@ -8,7 +8,8 @@ const dbname = process.env.MONGODB_DBNAME;
 const uri = `mongodb+srv://${username}:${password}@${cluster}.mongodb.net/${dbname}?retryWrites=true&w=majority`
 const configParams = {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    ssl:true
 }
 
 mongoose.connect(uri,configParams);
