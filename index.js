@@ -5,7 +5,7 @@ require('dotenv').config();
 require('./config/mongoConfig')
 
 const app = express()
-const port = 3000;
+const port = process.env.PORT||5000;
 
 app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
 app.use(express.json())
