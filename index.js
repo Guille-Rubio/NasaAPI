@@ -1,5 +1,5 @@
 const express = require('express');
-const morgan = require('./config/morganConfig');
+//const morgan = require('./config/morganConfig');
 const router = require('./routes/APIroutes');
 require('dotenv').config();
 require('./config/mongoConfig')
@@ -7,7 +7,7 @@ require('./config/mongoConfig')
 const app = express()
 const port = process.env.PORT || 5000;
 
-app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
+//app.use(morgan(':method :host :status :param[id] - :response-time ms :body'));
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 
