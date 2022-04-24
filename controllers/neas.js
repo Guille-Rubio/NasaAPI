@@ -1,76 +1,83 @@
 const neasQuerys = require('../modules/neasQuerys')
 const NeasModel = require('../modules/neas')
-const neasModel = require('../modules/neas')
+
 
 const getNeasByQuery = async (req, res) => {
-    const orbit_class = req.query.class
+    const orbit_class = req.query.orbit_class
     if (orbit_class) {
         const result = await neasQuerys.getNeasByQuery(orbit_class)
+        res.status(200).json(result);
 
-        res.status(200).json({ msg: result });
-    } else {
-        const dateFrom = req.query.from;
-        const dateTo = req.query.to;
-        const result = await neasQuerys.getNeasBetweenDates(dateFrom, dateTo)
-        res.status(200).json({ msg: result });
-
+    } else if (from||to){
+        const { from, to } = req.query
+        const result = await neasQuerys.getNeasBetweenDates(from, to)
+        res.status(200).json(result);
+    }else {
+        res.status(400).json({msg:"Bad request"});
     }
 }
 
 const createNea = async (req, res) => {
-    const { designation, discovery_date, h_mag, moid_au, q_au_1, q_au_2, period_yr, i_deg, pha, orbit_class, date } = req.query;
-    console.log(req.query)
+    const { designation, discovery_date, h_mag, moid_au, q_au_1, q_au_2, period_yr, i_deg, pha, orbit_class, date } = req.body;
+    //validaciones
     try {
-        const newNea = new neasModel(req.query);
+        const newNea = new NeasModel(req.body);
         newNea.save((err, newNea) => {
             if (err) return console.error(err);
-            console.log(`${newNea.name} saved in landings collection`)
+            console.log(`${newNea.designation} saved in neas collection`)
         })
         res.status(201).json({ msg: "New Nea added: " + req.body })
     } catch (err) {
         res.status(400).json({ msg: `error ${err}` })
     }
 
-    console.log('getNea')
-
-    res.status(200).json({ msg: "neas" });
 }
-
-const getNeaToEdit = async (req, res) => {
-    console.log('getNea')
-
-    res.status(200).json({ msg: "neas" });
-}
-
 
 const editNea = async (req, res) => {
-    console.log('getNea')
+    try {
+        const { _id } = req.body
+        const filter = { id: _id }
+        const { designation, discovery_date, h_mag, moid_au, q_au_1, q_au_2, period_yr, i_deg, pha, orbit_class } = req.body
 
-    res.status(200).json({ msg: "neas" });
+        const update =  {
+            designation: designation,
+            discovery_date: discovery_date,
+            h_mag: h_mag,
+            moid_au: moid_au,
+            q_au_1: q_au_1,
+            q_au_2: q_au_2,
+            period_yr: period_yr,
+            i_deg: i_deg,
+            pha: pha,
+            orbit_class: orbit_class
+        }
+
+        const doc = await NeasModel.findOneAndUpdate(filter, update, { new: false });
+        await doc.save()
+
+        res.status(201).json({ msg: `Neas` })
+    } catch (err) {
+        res.status(400).json({ msg: "Bad Request", err: err })
+    }
 }
 
 const deleteNea = async (req, res) => {
     try {
-        const { designation } = req.query
+        const { designation } = req.body
         const filter = { designation: designation }
-        neasModel.deleteOne(filter, function (err) {
+        NeasModel.deleteOne(filter, function (err) {
             if (err) return handleError(err);
         });
         res.status(200).json({ msg: `neas with designation: ${designation} has been deleted` })
     } catch (err) {
-        console.log(err)
         res.status(400).json({ msg: "Bad Request" })
     }
-
-
-    res.status(200).json({ msg: "neas" });
 }
 
 
 const neas = {
     getNeasByQuery,
     createNea,
-    getNeaToEdit,
     editNea,
     deleteNea
 }
