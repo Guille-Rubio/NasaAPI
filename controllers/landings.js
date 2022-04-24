@@ -6,9 +6,8 @@ require('mongoose');
 /**Descripción de la función: If the query contains mass it creates an equal or greater filter and looks up in the data base for landings with that value. Else it looks up as per the dates specified */
 
 const getLandingsByQuery = async (req, res) => {
-    console.log("mass request", req.query.mass)
     const mass = parseInt(req.query.mass)
-    console.log("mass", mass)
+    const { from, to } = req.query
     let filter = {}
     if (mass) {
         try {
@@ -18,17 +17,17 @@ const getLandingsByQuery = async (req, res) => {
             res.status(400).json({ msg: err })
         }
 
-    } else {
-        const from = req.query.from
-        const to = req.query.to
+    } else if (from || to) {
         try {
             const result = await landingModules.getLandingsBetweenDates(from, to)
-            res.status(200).json({ msg: result })
+            res.status(200).json(result)
         } catch (err) {
-            console.log(err)
             res.status(400).json({ msg: "Bad Request" })
+            throw err
         }
 
+    }else{
+        res.status(400).json({msg:"Bad request, please input mass, or date from/to."})
     }
 }
 
@@ -59,20 +58,21 @@ const getLandingsByClass = async (req, res) => {
             res.status(200).json(query)
         }
     } catch (err) {
-        console.log(err)
         res.status(400).json({ msg: "Bad Request" })
+        throw err
     }
 }
 
 const createLanding = async (req, res) => {
     const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
+    //validations
     try {
         const newLanding = new LandingModel(req.body);
         newLanding.save((err, newLanding) => {
             if (err) return console.error(err);
             console.log(`${newLanding.name} saved in landings collection`)
         })
-        res.status(201).json({ msg: "createLanding" + req.body })
+        res.status(201).json({ msg: "New landing saved" + req.body })
     } catch (err) {
         res.status(400).json({ msg: `error ${err}` })
     }
@@ -104,9 +104,6 @@ const deleteLanding = async (req, res) => {
         res.status(400).json({ msg: "Bad Request" })
     }
 }
-
-
-
 
 const controllers = {
     getLandingsByQuery,
