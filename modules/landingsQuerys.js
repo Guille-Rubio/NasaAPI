@@ -1,5 +1,6 @@
 const Landings = require('./landings');
 const dayjs = require('dayjs');
+const res = require('express/lib/response');
 
 const getLandingsAboveSpecificMass = async (min_mass) => {
     try {
@@ -24,13 +25,13 @@ const getLandingsAboveSpecificMass = async (min_mass) => {
     }
 }
 
-
 const getLandingsBetweenDates = async (from, to) => {
-    console.log("from " + from, "to " + to)
-    const dateFrom = new Date(from);
-    const dateTo = to ? new Date(to) : new Date()
-    console.log("FROM", dateFrom)
-    console.log("TO", dateTo)
+    let dateFrom = from? new Date(`${from}T00:00:00.000Z`):new Date(0000);
+    let dateTo = to ? new Date(`${to}T00:00:00.000Z`) : new Date();
+    if (dateFrom > dateTo) {
+        throw error
+    } 
+   
     try {
         const agg = [
             {
@@ -49,28 +50,24 @@ const getLandingsBetweenDates = async (from, to) => {
                 }
             },
             {
-                '$match': { 'date': { '$gte': dateFrom, '$lte': dateTo } }
+                '$match': { 'date': { '$gte': dateFrom, '$lte': dateTo } }//ISO Date
             },
             {
                 '$sort': { 'year': -1 }
             }
         ]
-        const result = Landings.aggregate(agg);
-        console.log("Query result" + result)
+        const result = await Landings.aggregate(agg);
         return result;
     }
 
     catch (err) {
         console.log(err)
-
     }
 }
-
 
 const landings = {
     getLandingsAboveSpecificMass,
     getLandingsBetweenDates
-
 }
 
 module.exports = landings

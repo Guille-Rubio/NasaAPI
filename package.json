@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/Guille-Rubio/NasaAPI#readme",
   "dependencies": {
+    "body-parser": "^1.20.0",
     "dayjs": "^1.11.1",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
