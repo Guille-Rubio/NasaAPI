@@ -10,7 +10,8 @@ const getLandingsAboveSpecificMass = async (min_mass) => {
                 {
                     '_id': 0,
                     'name': 1,
-                    'mass': 1
+                    'mass': 1,
+                    'gelocation':1
                 }
             },
             {
@@ -47,6 +48,7 @@ const getLandingsBetweenDates = async (from, to) => {
                     'name': 1,
                     'mass': 1,
                     'date': 1,
+                    'gelocation':1
                 }
             },
             {

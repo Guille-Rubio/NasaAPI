@@ -10,7 +10,8 @@ const getNeasByQuery = async (orbit_class) => {
                     '_id': 0,
                     'designation': 1,
                     'period_yr': 1,
-                    'orbit_class': 1
+                    'orbit_class': 1,
+                    'gelocation':1
                 }
             },
             {
@@ -50,7 +51,8 @@ const getNeasBetweenDates = async (from, to) => {
                     'period_yr':0,
                     'i_deg':0,
                     'pha':0,
-                    'orbit_class':0   
+                    'orbit_class':0,
+                    'gelocation':1   
                 }
             },
             {
