@@ -1,5 +1,7 @@
 const res = require('express/lib/response')
-const NeasModel = require('../modules/neas')
+const NeasModel = require('../models/neas')
+
+
 
 const getNeasByQuery = async (orbit_class) => {
     try {
@@ -52,7 +54,7 @@ const getNeasBetweenDates = async (from, to) => {
                     'i_deg':0,
                     'pha':0,
                     'orbit_class':0,
-                    'gelocation':1   
+                    'geolocation':1   
                 }
             },
             {

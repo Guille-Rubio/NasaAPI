@@ -1,5 +1,5 @@
 const res = require('express/lib/response')
-const LandingModel = require('../modules/landings')
+const LandingModel = require('../models/landings')
 const landingModules = require('../modules/landingsQuerys')
 require('mongoose');
 
@@ -65,6 +65,7 @@ const getLandingsByClass = async (req, res) => {
 
 const createLanding = async (req, res) => {
     const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
+    
     //validations
     try {
         const newLanding = new LandingModel(req.body);
@@ -81,6 +82,7 @@ const createLanding = async (req, res) => {
 const editLanding = async (req, res) => {
     try {
         const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
+        console.log(req.body)
         const update = req.body;
         const filter = { id: id }
         let landingToEdit = await LandingModel.findOneAndUpdate(filter, update, { new: true });

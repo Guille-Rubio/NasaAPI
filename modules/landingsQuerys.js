@@ -1,4 +1,4 @@
-const Landings = require('./landings');
+const Landings = require('../models/landings');
 const dayjs = require('dayjs');
 const res = require('express/lib/response');
 
@@ -11,7 +11,7 @@ const getLandingsAboveSpecificMass = async (min_mass) => {
                     '_id': 0,
                     'name': 1,
                     'mass': 1,
-                    'gelocation':1
+                    'geolocation':1
                 }
             },
             {
@@ -48,7 +48,7 @@ const getLandingsBetweenDates = async (from, to) => {
                     'name': 1,
                     'mass': 1,
                     'date': 1,
-                    'gelocation':1
+                    'geolocation':1,
                 }
             },
             {

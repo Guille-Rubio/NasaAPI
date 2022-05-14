@@ -22,7 +22,7 @@ const LandingSchema = new mongoose.Schema({
         trim: true
     },
     mass: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
@@ -37,12 +37,12 @@ const LandingSchema = new mongoose.Schema({
         trim: true
     },
     reclat: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
     reclong: {
-        type: String,
+        type: Number,
         required: true,
         trim: true
     },
