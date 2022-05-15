@@ -7,7 +7,7 @@ const NeasSchema = new mongoose.Schema({
         trim: true
     },
     discovery_date: {
-        type: String,
+        type: Date,
         required: true,
         trim: true
     },

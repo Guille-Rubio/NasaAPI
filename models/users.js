@@ -1,5 +1,8 @@
 const { Sequelize, DataTypes, Model } = require('sequelize');
-const sequelize = new Sequelize('sqlite::memory:');
+
+const sequelize = require('../config/elephantSQLConfig');
+
+//new Sequelize('sqlite::memory:');
 
 class User extends Model { }
 
@@ -9,12 +12,13 @@ User.init({
     type:DataTypes.INTEGER,
     primaryKey: true,
     unique : true,
-    allowNull: false,
+    /* allowNull: false, */
     autoIncrement:true
   },
 
   email: {
     type: DataTypes.STRING,
+    /* unique:true, */
     allowNull: false
   },
 
@@ -30,8 +34,7 @@ User.init({
   timestamps: 'false',
 });
 
-User.sync({ force: true });
-
+User.sync(/* { force: true } */);
 
 module.exports = User;
 

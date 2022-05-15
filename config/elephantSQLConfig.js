@@ -1,8 +1,9 @@
 require('dotenv').config();
 const { Sequelize } = require('sequelize');
 
-const elephant = new Sequelize(
-    process.env.POSTGRES_DB, 
+
+const sequelize = new Sequelize(
+    process.env.POSTGRES_DB,
     process.env.POSTGRES_USERNAME,
     process.env.POSTGRES_PASSWORD, {
     host: process.env.POSTGRES_HOST,
@@ -11,7 +12,7 @@ const elephant = new Sequelize(
 
 const connectSQL = async () => {
     try {
-        await elephant.authenticate();
+        await sequelize.authenticate();
         console.log('PostgreSQL database connected...');
     } catch (error) {
         console.error('Unable to connect to SQL database:', error);
@@ -19,7 +20,6 @@ const connectSQL = async () => {
 }
 
 
+(async () => await connectSQL())();
 
-(async()=>await connectSQL())();
-
-module.exports = elephant;
+module.exports = sequelize;

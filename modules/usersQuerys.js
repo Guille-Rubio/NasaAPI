@@ -6,7 +6,7 @@ const signUpNewUser = async (email, password) => {
 
     try {
         const newUser = await User.create({ email: email, password: password } /* , { fields: ['user', 'password'] } */)
-        console.log(newUser + ' was saved to the database!');
+        console.log(newUser , ' was saved to the database!');
     } catch (error) {
         console.log(error)
     }
