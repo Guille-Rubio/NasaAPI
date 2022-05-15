@@ -3,12 +3,10 @@ const jwt = require('jsonwebtoken')
 
 const SECRET = process.env.MY_TOKEN_SECRET
 
-const createToken = async (email, role, id) => {
+const createToken = async (email) => {
     const payload = {
         check: true,
-        email: email,
-        role: role,
-        id_user: id
+        email: email
     };
     
     const token = jwt.sign(payload, SECRET, {

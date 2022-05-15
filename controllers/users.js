@@ -30,15 +30,16 @@ const signUpUser = async (req, res) => {
 const logInUser = async (req, res) => {
     console.log("***** EN MODELO****");
     const { email, password } = req.body
-    console.log("req", email, password) //ok
+    console.log("req", email, password)
     try {
         const user = await usersQuerys.checkSignedUpUser(email, password)
         console.log("*****************")
         console.log(user.password)
-        user.password?res.status(400).send("invalid user or password"):"";
-    
+        user.password ? res.status(400).send("invalid user or password") : "";
+
         if (password === user[0].password) {
             const token = await tokens.createToken(email)
+            console.log(token)
             res.status(200).cookie("access_token", token)
 
         } else {
