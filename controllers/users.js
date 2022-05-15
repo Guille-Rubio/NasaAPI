@@ -28,28 +28,28 @@ const signUpUser = async (req, res) => {
 }
 
 const logInUser = async (req, res) => {
-    console.log("back", req.body)
+    console.log("***** EN MODELO****");
     const { email, password } = req.body
-    console.log("req", email, password)
+    console.log("req", email, password) //ok
     try {
         const user = await usersQuerys.checkSignedUpUser(email, password)
         console.log("*****************")
-        console.log("query result", user)
-
-        if (user.length > 0) {
+        console.log(user.password)
+        user.password?res.status(400).send("invalid user or password"):"";
+    
+        if (password === user[0].password) {
             const token = await tokens.createToken(email)
             res.status(200).cookie("access_token", token)
 
         } else {
-            res.status(400).send("user does not exist");
+            res.status(400).send("Invalid user or password");
         }
 
     } catch (error) {
-        console.log("login error", error)
+        console.log("ERROR", error)
     }
 
     //securizar query (eliminar caracteres raros)
-    //comprobar existencai de usuario y password en base de datos
     //crear JWT
     //devolver cookie
 
