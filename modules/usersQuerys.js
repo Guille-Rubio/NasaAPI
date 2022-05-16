@@ -14,12 +14,7 @@ const signUpNewUser = async (email, password) => {
 
 const checkSignedUpUser = async (email, password) => {
     try {
-        const [results, metadata] = await sequelize.query(`SELECT * FROM users WHERE email='${email}' AND password = '${password}';`)
-
-        
-        console.log("*******results*******", results)
-        //handle wrong password
-
+        const [results, metadata] = await sequelize.query(`SELECT * FROM users WHERE email='${email}' AND password = '${password}';`);
         return results
 
     } catch (error) {

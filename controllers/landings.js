@@ -26,8 +26,8 @@ const getLandingsByQuery = async (req, res) => {
             throw err
         }
 
-    }else{
-        res.status(400).json({msg:"Bad request, please input mass, or date from/to."})
+    } else {
+        res.status(400).json({ msg: "Bad request, please input mass, or date from/to." })
     }
 }
 
@@ -105,6 +105,21 @@ const deleteLanding = async (req, res) => {
     }
 }
 
+const getLandingByName = async (req, res) => {
+    try {
+        const name = req.params.name;
+        const filter = { name: name };
+        const query = await LandingModel.find(filter)
+        res.status(200).json(query)
+
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({msg:"Bad Request"})
+    }
+
+
+}
+
 const controllers = {
     getLandingsByQuery,
     getLandingsBySpecificMass,
@@ -112,6 +127,7 @@ const controllers = {
     createLanding,
     editLanding,
     deleteLanding,
+    getLandingByName,
 }
 
 module.exports = controllers

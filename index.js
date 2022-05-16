@@ -11,7 +11,18 @@ const path = require('path');//Añadido para conectar front y back
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+app.use(cors(
+{
+    //origin: "http://localhost:3000/landings",
+    //methods:['GET','PUT', 'POST', 'DELETE'],
+    allowedHeaders:['Content-Type'],
+    //exposedHeaders: [],
+    //credentials:true,
+    //maxAge:18,
+    //preflightContinue:true,
+    //optionsSuccessStatus:
+}
+));
 
 app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(express.json());

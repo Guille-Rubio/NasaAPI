@@ -28,19 +28,16 @@ const signUpUser = async (req, res) => {
 }
 
 const logInUser = async (req, res) => {
-    console.log("***** EN MODELO****");
     const { email, password } = req.body
-    console.log("req", email, password)
     try {
         const user = await usersQuerys.checkSignedUpUser(email, password)
-        console.log("*****************")
-        console.log(user.password)
         user.password ? res.status(400).send("invalid user or password") : "";
+        console.log("*********", user);
 
         if (password === user[0].password) {
             const token = await tokens.createToken(email)
             console.log(token)
-            res.status(200).cookie("access_token", token)
+            res.status(200).cookie("access_token", token, { httpOnly: true }).json({ msg: "user loged as " + email })
 
         } else {
             res.status(400).send("Invalid user or password");
@@ -48,6 +45,7 @@ const logInUser = async (req, res) => {
 
     } catch (error) {
         console.log("ERROR", error)
+        res.status(400).send("Bad Request")
     }
 
     //securizar query (eliminar caracteres raros)
@@ -56,11 +54,18 @@ const logInUser = async (req, res) => {
 
 }
 
+const logout = (req, res) => {
+    res.status(200).cookie('access_token', "")
+
+
+}
+
 
 
 const users = {
     signUpUser,
     logInUser,
+    logout
 
 }
 

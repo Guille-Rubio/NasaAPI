@@ -6,6 +6,7 @@ const neas = require('../controllers/neas')
 apiRouter.get('/astronomy/landings/?', landings.getLandingsByQuery);
 apiRouter.get('/astronomy/landings/mass/:mass', landings.getLandingsBySpecificMass);
 apiRouter.get('/astronomy/landings/class/:class', landings.getLandingsByClass);
+apiRouter.get('/astronomy/landings/:name',landings.getLandingByName)
 apiRouter.post('/astronomy/landings/create', landings.createLanding);
 apiRouter.put('/astronomy/landings/edit', landings.editLanding);
 apiRouter.delete('/astronomy/landings/delete', landings.deleteLanding);
