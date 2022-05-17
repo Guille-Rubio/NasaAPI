@@ -1,6 +1,6 @@
 const express = require('express');
 const userRouter = require('./routes/userRoutes');
-const apiRouter = require('./routes/APIRoutes');
+const apiRouter = require('./routes/APIroutes');
 require('dotenv').config();
 require('./config/mongoConfig');
 const { connectSQL } = require('./config/elephantSQLConfig');
