@@ -1,53 +1,53 @@
 const mongoose = require('mongoose');
 
-const NeasSchema = new mongoose.Schema({
-    designation: {
+const LandingSchema = new mongoose.Schema({
+    name: {
         type: String,
         required: false,
         trim: true
     },
-    discovery_date: {
+    id: {
         type: String,
         required: true,
         trim: true
     },
-    h_mag: {
+    nametype: {
         type: String,
         required: true,
         trim: true
     },
-    moid_au: {
+    recclass: {
         type: String,
         required: true,
         trim: true
     },
-    q_au_1: {
+    mass: {
+        type: Number,
+        required: true,
+        trim: true
+    },
+    fall: {
         type: String,
         required: true,
         trim: true
     },
-    q_au_2: {
-        type: String,
+    year: {
+        type: Date,
         required: true,
         trim: true
     },
-    period_yr: {
-        type: String,
+    reclat: {
+        type: Number,
         required: true,
         trim: true
     },
-    i_deg: {
-        type: String,
+    reclong: {
+        type: Number,
         required: true,
         trim: true
     },
-    pha: {
-        type: String,
-        required: false,
-        trim: true
-    },
-    orbit_class: {
-        type: String,
+    geolocation: {
+        type: Object,
         required: false,
         trim: true
     }  
@@ -55,7 +55,6 @@ const NeasSchema = new mongoose.Schema({
 })
 
 
-const neasModel = mongoose.model("neas", NeasSchema);
+const landingModel = mongoose.model("landings", LandingSchema)
 
-
-module.exports = neasModel;
+module.exports = landingModel

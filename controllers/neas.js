@@ -1,6 +1,10 @@
 const neasQuerys = require('../modules/neasQuerys')
-const NeasModel = require('../modules/neas')
+const NeasModel = require('../models/neas')
 
+const getAllNeas = async(req, res)=>{
+    const neas = await NeasModel.find();
+    res.status(200).json(neas) 
+}
 
 const getNeasByQuery = async (req, res) => {
     const orbit_class = req.query.orbit_class
@@ -76,10 +80,12 @@ const deleteNea = async (req, res) => {
 
 
 const neas = {
+    getAllNeas,
     getNeasByQuery,
     createNea,
     editNea,
     deleteNea
+    
 }
 
 module.exports = neas
