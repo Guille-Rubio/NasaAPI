@@ -83,7 +83,7 @@ const editLanding = async (req, res) => {
         const { name, id, nametype, recclass, mass, fall, year, reclat, reclong, geolocation } = req.body;
         const update = req.body;
         const filter = { id: id }
-        let landingToEdit = await LandingModel.findOneAndUpdate(filter, update, { new: true });
+        let landingToEdit = await LandingModel.findOneAndUpdate(filter, update/* , { new: true } */);
         res.status(201).json({ msg: `Landing ${filter.id} edited, saved data: ` + landingToEdit })
     } catch (err) {
         console.log(err)
@@ -110,15 +110,34 @@ const getLandingByName = async (req, res) => {
         const name = req.params.name;
         const filter = { name: name };
         const query = await LandingModel.find(filter)
-        res.status(200).json(query)
+        if (query == 0) {
+            res.status(200).json({ msg: `No landings saved under ${name}` })
+        } else {
+            res.status(200).json(query);
+        }
 
     } catch (error) {
         console.log(error)
-        res.status(400).json({msg:"Bad Request"})
+        res.status(400).json({ msg: "Bad Request" })
     }
-
-
 }
+
+const getLandingById = async (req, res) => {
+    try {
+        let id = req.params.id;
+        const filter = { id: id };
+        const query = await LandingModel.find(filter);
+        if (query == 0) {
+            res.status(200).json({ msg: `No landings saved under ${id}` })
+        } else {
+            res.status(200).json(query);
+        }
+    } catch (error) {
+        console.log(error)
+        res.status(400).json({ msg: "Bad Request" })
+    }
+}
+
 
 const controllers = {
     getLandingsByQuery,
@@ -128,6 +147,7 @@ const controllers = {
     editLanding,
     deleteLanding,
     getLandingByName,
+    getLandingById
 }
 
 module.exports = controllers
