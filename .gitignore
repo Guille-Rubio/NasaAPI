@@ -105,3 +105,6 @@ dist
 
 # Environment Variables
 /config/dev.js
+
+#
+/config/devConfig.js
