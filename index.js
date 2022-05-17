@@ -13,7 +13,7 @@ const port = process.env.PORT || 5000;
 
 app.use(cors(
 {
-    origin: ["https://enigmatic-hamlet-54343.herokuapp.com/","https://api.nasa.gov/planetary/apod"],
+    origin: ["https://enigmatic-hamlet-54343.herokuapp.com/","https://melodious-speculoos-e31a9b.netlify.app/","https://api.nasa.gov/planetary/apod"],
     //methods:['GET','PUT', 'POST', 'DELETE'],
     allowedHeaders:['Content-Type'],
     //exposedHeaders: [],
